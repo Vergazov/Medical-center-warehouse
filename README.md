@@ -2,7 +2,7 @@
 
 ## Оглавление
 ### Занятие 1. Проектирование БД
-1. [Схема базы данных]()
+1. [Схема базы данных](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/Medical-center-warehouse.sql)
 2. [Документация]()
 3. [Примеры бизнес-задач ]()
 4. [Рекомендации]()
