@@ -6,3 +6,5 @@
 2. [Документация](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/documentation.md)
 3. [Примеры бизнес-задач ](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/examples_of_business_tasks.md)
 4. [Рекомендации](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/recommendations.md)
+
+### ✒️ Занятие 2. Компоненты современной СУБД 
