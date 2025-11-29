@@ -1,8 +1,7 @@
-Индексы:
+# Компоненты современной СУБД
 
-Таблица номенклатуры nomenclatures
-
-Возможные запросы/отчеты/ограничения:
+## Таблица номенклатуры nomenclatures
+### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность| Ограничения                         |
 |--------------------|---------------------|-----------------------------|-----------------------|
@@ -19,7 +18,6 @@
 | comment            | -       | высокая     | ограничения формата |
 
 Индексы:
-
 * CREATE INDEX idx_name ON nomenclatures(name);
 * CREATE INDEX idx_type_id ON nomenclatures(type_id);
 * CREATE INDEX idx_speciality_idON nomenclatures(speciality_id);
@@ -28,9 +26,8 @@
 * CREATE INDEX idx_min_balance ON nomenclatures(min_balance);
 * CREATE INDEX idx_max_balance ON nomenclatures(max_balance);
 
-Таблица приходных накладных - purchase_invoices
-
-Возможные запросы/отчеты/ограничения:
+## Таблица приходных накладных - purchase_invoices
+### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
 |--------------------|---------------|-----------------------------------|--------------|
@@ -44,16 +41,14 @@
 | comment            | -  | высокая | ограничения формата |
 
 Индексы:
-
 * CREATE INDEX idx_date ON purchase_invoices(date);
 * CREATE INDEX idx_provider_id  ON purchase_invoices(provider_id );
 * CREATE INDEX idx_employee_id ON purchase_invoices(employee_id);
 * CREATE INDEX idx_company_id ON purchase_invoices(company_id);
 * CREATE INDEX idx_storage_id  ON purchase_invoices(storage_id);
 
-Таблица приходов - parishes
-
-Возможные запросы/отчеты/ограничения:
+## Таблица приходов - parishes
+### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
 |--------------------|---------------|-----------------------------------|--------------|
@@ -68,7 +63,6 @@
 | comment              | -                | высокая                | ограничения формата |
 
 Индексы:
-
 * CREATE INDEX idx_amount ON parishes(amount);
 * CREATE INDEX idx_price ON parishes(price);
 * CREATE INDEX idx_vat ON parishes(vat);
@@ -77,7 +71,6 @@
 * CREATE INDEX idx_purchase_invoice_id ON parishes(purchase_invoice_id);
 
 ## Таблица расходных накладных - expense_invoices
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -90,14 +83,12 @@
 | comment            | -  | высокая | ограничения формата |
 
 Индексы:
-
 * CREATE INDEX idx_date ON expense_invoices(idx_date);
 * CREATE INDEX idx_accounting_object_id ON expense_invoices(accounting_object_id);
 * CREATE INDEX idx_storage_id ON expense_invoices(storage_id);
 
 
 ## Таблица списаний - cancellations
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -113,7 +104,6 @@
 | comment              | -                | высокая                | ограничения формата |
 
 Индексы:
-
 * CREATE INDEX idx_amount ON cancellations(amount);
 * CREATE INDEX idx_price ON cancellations(price);
 * CREATE INDEX idx_vat ON cancellations(vat);
@@ -122,7 +112,6 @@
 * CREATE INDEX idx_expense_invoice_id ON cancellations(expense_invoice_id);
 
 ## Таблица типов - types
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -131,11 +120,9 @@
 | name               | поиск по имени       | высокая  | unique, not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON types(name);
 
 ## Таблица специальностей - specialities
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -144,11 +131,9 @@
 | name               | поиск по имени       | высокая  | unique, not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON specialities(name);
 
 ## Таблица единиц измерения - units
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -157,11 +142,9 @@
 | name               | поиск по имени       | высокая  | unique, not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON units(name);
 
 ## Таблица поставщиков - providers
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -171,13 +154,11 @@
 | INN                | поиск по инн      | высокая  | unique, not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON providers(name);
 * CREATE INDEX idx_INN ON providers(INN);
 
 
 ## Таблица сотрудников - employees
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -188,11 +169,9 @@
 | email              | -     | высокая  | not null , unique|
 
 Индексы:
-
 * CREATE INDEX idx_name ON employees(name);
 
 ## Таблица компаний - companies
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -202,12 +181,10 @@
 | INN                | поиск по инн      | высокая  | unique, not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON companies(name);
 * CREATE INDEX idx_INN ON companies(INN);
 
 ## Таблица складов - storages
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -217,12 +194,10 @@
 | company_id         |  join для отображения всей информации о складе, поиск по компании     | высокая  | not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON storages(name);
 * CREATE INDEX idx_INN ON storages(INN);
 
 ## Таблица структуры складов - strorage_structures
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -233,11 +208,10 @@
 
 Индексы:
 
-* CREATE INDEX idx_parent_id ON strorage_structures(parent_id);
+* CRATE INDEX idx_parent_id ON strorage_structures(parent_id);
 * CREATE INDEX idx_child_id  ON strorage_structures(child_id);
 
 ## Таблица объектов учета - accounting_object
-
 ### Возможные запросы/отчеты/ограничения:
 
 | Поле               | Описание запроса    | Кардинальность | Ограничения |
@@ -246,5 +220,4 @@
 | name               | поиск по имени       | высокая  | unique, not null |
 
 Индексы:
-
 * CREATE INDEX idx_name ON accounting_object(name);
