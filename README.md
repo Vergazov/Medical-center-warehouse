@@ -8,3 +8,4 @@
 4. [Рекомендации](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/recommendations.md)
 
 ### ✒️ Занятие 2. Компоненты современной СУБД 
+1. [Добавляем в модель данных дополнительные индексы и ограничения](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_2/Components.md)

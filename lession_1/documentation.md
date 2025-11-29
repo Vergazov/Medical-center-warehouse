@@ -69,7 +69,7 @@
 | amount               | INTEGER             | Количество товара         |
 | price                | INTEGER             | Цена                      |
 | vat                  | INTEGER             | Ставка НДС                |
-| manufactire_date     | date                | Дата производства         |
+| manufacture_date     | date                | Дата производства         |
 | good_until           | date                | Годен до                  |
 | namenclature_id      | INTEGER             | Номенклатура              |  
 | purchase_invoice_id  | INTEGER             | Прииходна накладная       |
@@ -163,7 +163,7 @@
 | id                   | INTEGER             | Уникальный Идентификатор  |
 | amount               | INTEGER             | Количество товара         |
 | price                | INTEGER             | Цена                      |
-| manufactire_date     | date                | Дата производства         |
+| manufacture_date     | date                | Дата производства         |
 | good_until           | date                | Годен до                  |
 | namenclature_id      | INTEGER             | Номенклатура              |  
 | expense_invoice_id   | INTEGER             | Расходная накладная       |
