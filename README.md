@@ -12,5 +12,5 @@
 
 ### ✒️ Занятие 6. Внутренняя архитектура СУБД PostgreSQL
 1. [Подключение через pgAdmin](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/pgAdminScreen.png)
-2. [Подключение через cli](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/pgAdminScreen.png)
+2. [Подключение через cli](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/docker-compose-screen.png)
 3. [Пример docker-compose](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/docker-compose.yml)
