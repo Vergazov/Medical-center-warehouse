@@ -14,3 +14,8 @@
 1. [Подключение через pgAdmin](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/pgAdminScreen.png)
 2. [Подключение через cli](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/docker-compose-screen.png)
 3. [Пример docker-compose](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_6/docker-compose.yml)
+
+### ✒️ Занятие 7. DDL: создание, изменение и удаление объектов в PostgreSQL
+1. [Cоздание и редактирование объектов БД в СУБД PostgreSQL.](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/readme.md)
+2. [Схема базы] (https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/base.png)
+2. [Пользователи и табличные пространства] (https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/users_ts.png)
