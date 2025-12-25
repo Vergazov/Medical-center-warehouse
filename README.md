@@ -2,7 +2,7 @@
 
 ## 📝 Оглавление
 ### ✒️ Занятие 1. Проектирование БД
-1. [Схема базы данных](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/Medical-center-warehouse_scheme.svg)
+1. [Схема базы данных](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/Medical_Center_Warehouse.svg)
 2. [Документация](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/documentation.md)
 3. [Примеры бизнес-задач ](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/examples_of_business_tasks.md)
 4. [Рекомендации](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_1/recommendations.md)
@@ -18,9 +18,7 @@
 ### ✒️ Занятие 7. DDL: создание, изменение и удаление объектов в PostgreSQL
 1. [Cоздание и редактирование объектов БД в СУБД PostgreSQL.](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/readme.md)
 2. [Схема базы](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/base.png)
-2. [Пользователи и табличные пространства](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/users_ts.png)
+3. [Пользователи и табличные пространства](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/users_ts.png)
 
 ### ✒️ Занятие 7. DML: вставка, обновление, удаление, выборка данных в PostgreSQL
-1. [Cоздание и редактирование объектов БД в СУБД PostgreSQL.](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/readme.md)
-2. [Схема базы](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/base.png)
-2. [Пользователи и табличные пространства](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/users_ts.png)
+1. [Выполнение всех запросов.](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_10/readme.md)
