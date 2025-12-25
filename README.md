@@ -20,5 +20,5 @@
 2. [Схема базы](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/base.png)
 3. [Пользователи и табличные пространства](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_7/users_ts.png)
 
-### ✒️ Занятие 7. DML: вставка, обновление, удаление, выборка данных в PostgreSQL
+### ✒️ Занятие 10. DML: вставка, обновление, удаление, выборка данных в PostgreSQL
 1. [Выполнение всех запросов.](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_10/readme.md)
