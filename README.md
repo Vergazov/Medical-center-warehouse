@@ -22,3 +22,6 @@
 
 ### ✒️ Занятие 10. DML: вставка, обновление, удаление, выборка данных в PostgreSQL
 1. [Выполнение всех запросов.](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_10/readme.md)
+
+### ✒️ Занятие 12. Индексы в PostgreSQL
+1. [Создание индексов](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_12/readme.md)
