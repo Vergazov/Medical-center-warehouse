@@ -25,3 +25,6 @@
 
 ### ✒️ Занятие 12. Индексы в PostgreSQL
 1. [Создание индексов](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_12/readme.md)
+
+### ✒️ Занятие 13. DML: агрегация и сортировка, CTE, аналитические функции в PostgreSQL
+1. [Выполнение запросов](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_13/readme.md)
