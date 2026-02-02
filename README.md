@@ -28,3 +28,7 @@
 
 ### ✒️ Занятие 13. DML: агрегация и сортировка, CTE, аналитические функции в PostgreSQL
 1. [Выполнение запросов](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_13/readme.md)
+
+### ✒️ Занятие 19. Репликация в PostgreSQL 
+1. [Физическая репликация](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_19/phisical.md)
+2. [Логическая репликация](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_19/logical.md)
