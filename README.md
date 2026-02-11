@@ -32,3 +32,6 @@
 ### ✒️ Занятие 19. Репликация в PostgreSQL 
 1. [Физическая репликация](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_19/phisical.md)
 2. [Логическая репликация](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_19/logical.md)
+
+### ✒️ Занятие 22. Внутренняя архитектура MySQL 
+1. [Создание базы MYSQL в докере](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_22/readme.md)
