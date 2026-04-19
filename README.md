@@ -38,3 +38,6 @@
 
 ### ✒️ Занятие 23. Типы данных в MySQL 
 1. [Типы данных в MYSQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_23/readme.md)
+
+### ✒️ Занятие 25. SQL выборка 
+1. [SQL выборка](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_25/readme.md)
