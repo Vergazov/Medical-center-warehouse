@@ -40,7 +40,7 @@ LEFT JOIN units exp_unit ON unitts.id = nomenclatures.expiration_unit_id;
 ### Напишите 5 запросов с WHERE с использованием разных операторов, опишите для чего вам в проекте нужна такая выборка данных
 
 ```sql
--- Отфильтровать приходные накладные
+-- Отфильтровать приходные накладные по складу и ответственному сотрудникуу
 SELECT * FROM purchase_invoices 
 WHERE 1=1
 AND storage_id = 3
@@ -55,7 +55,7 @@ AND comment LIKE = '%оформлена по заказу%';
 ```
 
 ```sql
--- Поиск номенклатуры
+-- Поиск номенклатуры по имени
 SELECT * FROM nomenclatures 
 WHERE 1=1
 AND name LIKE 'Бинт стериль%';
