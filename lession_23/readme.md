@@ -45,6 +45,7 @@
 ```sql
 DROP TABLE IF EXISTS purchase_invoice_change_log;
 
+-- создаем таблицу истории изменений
 CREATE TABLE purchase_invoice_change_log (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     purchase_invoice_id INT NOT NULL,
@@ -52,14 +53,21 @@ CREATE TABLE purchase_invoice_change_log (
     FOREIGN KEY (purchase_invoice_id) REFERENCES purchase_invoices(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- измееняем приходную накладную
 UPDATE purchase_invoices SET storage_id = 14, provider_id = 2 WHERE id = 185;
+
+-- фиксируем изменения в лог
 INSERT INTO purchase_invoice_change_log (purchase_invoice_id, log) VALUES 
     (185, '{"author": "Иванов Иван", "time": "2026-04-19 18:49:09", "newValues": {"storage_id": 14, "provider_id": 2}}');
 
+-- измееняем приходную накладную
 UPDATE purchase_invoices SET employee_id = 2, provider_id = 3 WHERE id = 185;
+
+-- фиксируем изменения в лог
 INSERT INTO purchase_invoice_change_log (purchase_invoice_id, log) VALUES 
     (185, '{"author": "Петров Петя", "time": "2026-04-19 19:50:00", "newValues": {"employee_id": 2, "provider_id": 3}}');
 
+-- смотрим историю изменений по конкретной накладной
 SELECT 
     purchase_invoice_id,
     log->>'$.author' as author,

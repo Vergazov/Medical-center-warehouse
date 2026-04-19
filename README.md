@@ -35,3 +35,6 @@
 
 ### ✒️ Занятие 22. Внутренняя архитектура MySQL 
 1. [Создание базы MYSQL в докере](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_22/readme.md)
+
+### ✒️ Занятие 23. Типы данных в MySQL 
+1. [Типы данных в MYSQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_23/readme.md)
