@@ -8,13 +8,13 @@
 -- Вывести все оприходования конкретного товара
 SELECT
     nomenclatures.name,
-    parishess.price,
-    parishess.amount,
+    parishes.price,
+    parishes.amount,
     purchase_invoices.document_number,
     purchase_invoices.date
-FROM parishess
+FROM parishes
 INNER JOIN nomenclatures nom ON nom.id = nomenclature.id
-INNER JOIN purchase_invoices ON purchase_invoices.id = parishess.purchase_invoice_id
+INNER JOIN purchase_invoices ON purchase_invoices.id = parishes.purchase_invoice_id
 WHERE nomenclatures.id = 4
 ORDER BY DATE DESC;
 ```
@@ -70,7 +70,7 @@ AND nomenclature_id = 140;
 ```
 
 ```sql
--- Поиск расходов конкретной номенлатуры в которой за раз списано больше 100 позиций
+-- Поиск расходов конкретной номенклатуры в которой за раз списано больше 100 позиций
 SELECT * FROM cancelations
 WHERE 1=1
 AND amount > 100
