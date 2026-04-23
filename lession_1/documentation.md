@@ -57,7 +57,7 @@
 |--------------------|---------------|-----------------------------------|
 | id                 | INTEGER       | Уникальный Идентификатор          |
 | document_number    | VARCHAR(50)   | Номер документа                   |
-| date               | TIMESTAMP     | Дата формирования документа       |
+| date               | DATETIME      | Дата формирования документа       |
 | provider_id        | INTEGER       | Поставщик                         |
 | employee_id        | INTEGER       | Ответственный сотрудник           |
 | company_id         | INTEGER       | Компания приходования             |
@@ -72,10 +72,10 @@
 |--------------------|---------------|-----------------------------------|
 | id                   | INTEGER             | Уникальный Идентификатор  |
 | amount               | INTEGER             | Количество товара         |
-| price                | DOUBLE              | Цена                      |
+| price                | DECIMAL              | Цена                      |
 | vat                  | INTEGER             | Ставка НДС                |
-| manufacture_date     | date                | Дата производства         |
-| good_until           | date                | Годен до                  |
+| manufacture_date     | DATETIME                | Дата производства         |
+| good_until           | DATETIME                | Годен до                  |
 | namenclature_id      | INTEGER             | Номенклатура              |  
 | purchase_invoice_id  | INTEGER             | Прииходна накладная       |
 | comment              | TEXT                | Коментарий                |
@@ -155,7 +155,7 @@
 |----------------------|---------------|-----------------------------------|
 | id                   | INTEGER       | Уникальный Идентификатор          |
 | document_number      | VARCHAR(50)   | Номер документа                   |
-| date                 | TIMESTAMP     | Дата формирования документа       |
+| date                 | DATETIME     | Дата формирования документа       |
 | accounting_object_id | INTEGER       | Объект учета                      |
 | storage_id           | INTEGER       | Склад списания                    |
 | comment              | TEXT          | Коментарий                        |
@@ -169,9 +169,9 @@
 |--------------------  |---------------      |---------------------------|
 | id                   | INTEGER             | Уникальный Идентификатор  |
 | amount               | INTEGER             | Количество товара         |
-| price                | DOUBLE              | Цена                      |
-| manufacture_date     | date                | Дата производства         |
-| good_until           | date                | Годен до                  |
+| price                | DECIMAL              | Цена                      |
+| manufacture_date     | DATETIME                | Дата производства         |
+| good_until           | DATETIME                | Годен до                  |
 | namenclature_id      | INTEGER             | Номенклатура              |  
 | expense_invoice_id   | INTEGER             | Расходная накладная       |
 | comment              | TEXT                | Коментарий                |

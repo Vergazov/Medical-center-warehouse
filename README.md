@@ -41,3 +41,6 @@
 
 ### ✒️ Занятие 25. SQL выборка 
 1. [SQL выборка](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_25/readme.md)
+
+### ✒️ Транзакции, MVCC, ACID в MySQL 
+1. [Транзакции](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_26/readme.md)
