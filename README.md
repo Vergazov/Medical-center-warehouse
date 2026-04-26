@@ -42,5 +42,8 @@
 ### ✒️ Занятие 25. SQL выборка 
 1. [SQL выборка](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_25/readme.md)
 
-### ✒️ Транзакции, MVCC, ACID в MySQL 
+### ✒️ Занятие 26. Транзакции, MVCC, ACID в MySQL 
 1. [Транзакции](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_26/readme.md)
+
+### ✒️ Занятие 27. DML: агрегация и сортировка в MySQL  
+1. [Агрегациия](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_27/readme.md)
