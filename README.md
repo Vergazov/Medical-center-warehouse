@@ -49,4 +49,4 @@
 1. [Агрегациия](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_27/readme.md)
 
 ### ✒️ Занятие 28. Индексы в MySQL 
-1. [Агрегациия](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_28/readme.md)
+1. [Индексы](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_28/readme.md)
