@@ -57,7 +57,7 @@ ALTER TABLE storage_structures ADD INDEX idx_child_id (child_id);
 ALTER TABLE storage_structures ADD INDEX idx_parent_child (parent_id, child_id);
 
 -- 12. Таблица accounting_object
-ALTER TABLE accounting_object ADD INDEX idx_name (name);
+ALTER TABLE accounting_objects ADD INDEX idx_name (name);
 
 -- 13. Таблица expense_invoices
 ALTER TABLE expense_invoices ADD INDEX idx_accounting_object_id (accounting_object_id);

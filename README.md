@@ -50,3 +50,6 @@
 
 ### ✒️ Занятие 28. Индексы в MySQL 
 1. [Индексы](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_28/readme.md)
+
+### ✒️ Занятие 29. CTE и аналитические функции в MySQL 
+1. [CTE](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_29/readme.md)
