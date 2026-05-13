@@ -138,6 +138,9 @@ LEFT JOIN monthly_sales ms
     AND ms.month = ac.month
 ORDER BY ac.store_id, ac.month;
 ```
+
+![alt text](image.png)
+
 ## Напишите запрос, который выведет 7-дневное скользящее среднее за последний месяц по самому плодовитому магазину.
 
 > Граничный случай: если за какой-то день нету продаж, то день будет все равно включен в выборку с нулевой суммой
@@ -228,7 +231,7 @@ WHERE DATE_FORMAT(date, '%Y-%m') = (
 )
 ORDER BY date;
 ```
-
+![alt text](image-1.png)
 
 
 
