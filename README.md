@@ -53,3 +53,6 @@
 
 ### ✒️ Занятие 29. CTE и аналитические функции в MySQL 
 1. [CTE](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_29/readme.md)
+
+### ✒️ Занятие 30. Хранимые процедуры и триггеры в MySQL 
+1. [Хранимые процедуры и триггеры в MySQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_30/readme.md)

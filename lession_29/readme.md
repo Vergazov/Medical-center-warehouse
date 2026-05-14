@@ -232,6 +232,3 @@ WHERE DATE_FORMAT(date, '%Y-%m') = (
 ORDER BY date;
 ```
 ![alt text](image-1.png)
-
-
-
