@@ -26,6 +26,7 @@ SELECT * FROM group_by_product gp;
 ## постройте EXPLAIN в 3 формата
 
 EXPLAIN:
+
 ![alt text](image-1.png)
 
 EXPLAIN ANALYZE:
