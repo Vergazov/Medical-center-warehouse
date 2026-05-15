@@ -26,13 +26,7 @@ SELECT * FROM group_by_product gp;
 ## постройте EXPLAIN в 3 формата
 
 EXPLAIN:
-+----+-------------+------------+------------+--------+---------------+---------+---------+-----------------------+-------+----------+---------------------------------+
-| id | select_type | table      | partitions | type   | possible_keys | key     | key_len | ref                   | rows  | filtered | Extra                           |
-+----+-------------+------------+------------+--------+---------------+---------+---------+-----------------------+-------+----------+---------------------------------+
-|  1 | PRIMARY     | <derived2> | NULL       | ALL    | NULL          | NULL    | NULL    | NULL                  |  1501 |   100.00 | NULL                            |
-|  2 | DERIVED     | s          | NULL       | ALL    | NULL          | NULL    | NULL    | NULL                  | 30034 |   100.00 | Using temporary; Using filesort |
-|  2 | DERIVED     | p          | NULL       | eq_ref | PRIMARY       | PRIMARY | 4       | triggers.s.product_id |     1 |     5.00 | Using where                     |
-+----+-------------+------------+------------+--------+---------------+---------+---------+-----------------------+-------+----------+---------------------------------+
+![alt text](image-1.png)
 
 EXPLAIN ANALYZE:
 ```
@@ -47,6 +41,7 @@ EXPLAIN ANALYZE:
                             -> Single-row index lookup on p using PRIMARY (id=s.product_id)  (cost=0.25 rows=1) (actual time=461e-6..478e-6 rows=1 loops=30000)
 ```
 
+EXPLAIN FORMAT=JSON
 ```json
 {
   "query_block": {
