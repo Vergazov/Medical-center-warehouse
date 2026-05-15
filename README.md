@@ -56,3 +56,6 @@
 
 ### ✒️ Занятие 30. Хранимые процедуры и триггеры в MySQL 
 1. [Хранимые процедуры и триггеры в MySQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_30/readme.md)
+
+### ✒️ Занятие 31. Оптимизация производительности. Профилирование. Мониторинг в MySQL 
+1. [Explain Analyze](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_31/readme.md)
