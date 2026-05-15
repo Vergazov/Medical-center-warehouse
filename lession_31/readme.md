@@ -4,7 +4,7 @@
 
 > запрос
 ```sql
-explain analyze WITH filtered_products AS (
+WITH filtered_products AS (
     SELECT id
     FROM triggers.products p
     WHERE category_id IN (1,2,3)
