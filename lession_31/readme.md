@@ -185,6 +185,7 @@ EXPLAIN FORMAT=JSON
 ```
 
 Узкие места:
+
 -> Table scan on s  (cost=3044 rows=30034) (actual time=0.386..4.83 rows=30000 loops=1) - фул скан 30000 строк
 -> Filter: ((`triggers`.p.category_id in (1,2,3)) and (`triggers`.p.price > 110000.00) and (`triggers`.p.stock_quantity > 200))  (cost=0.25 rows=0.05) (actual time=694e-6..697e-6 rows=0.062 loops=30000) - фильтрация в 30000 строках
 
