@@ -59,3 +59,6 @@
 
 ### ✒️ Занятие 31. Оптимизация производительности. Профилирование. Мониторинг в MySQL 
 1. [Explain Analyze](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_31/readme.md)
+
+### ✒️ Занятие 32. Репликация MySQL
+1. [Репликация MySQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_32/readme.md)
