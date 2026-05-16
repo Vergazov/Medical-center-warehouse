@@ -98,7 +98,7 @@ START SLAVE;
 ![alt text](image-9.png)
 
 ```sql
-START SLAVE; 
+SHOW SLAVE STATUS\G 
 ```
 ![alt text](image-10.png)
 
@@ -108,9 +108,10 @@ START SLAVE;
 
 ![alt text](image-12.png)
 
-видим что реплика догнала мастер
+Видим что реплика догнала мастер
 
 Попробуем вставить новые данные на мастер
+
 ![alt text](image-13.png)
 
 Конфигурация:
