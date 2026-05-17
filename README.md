@@ -62,3 +62,6 @@
 
 ### ✒️ Занятие 32. Репликация MySQL
 1. [Репликация MySQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_32/readme.md)
+
+### ✒️ Занятие 33. Развернуть кластер MySQL
+1. [Развернуть кластер MySQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_33/readme.md)
