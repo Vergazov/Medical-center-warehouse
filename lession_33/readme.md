@@ -81,7 +81,7 @@ chown -R mysql:mysql /var/lib/mysql
 ```
 
 Настраиваю каждую ноду:
-## Для  PXC1
+### Для  PXC1
 
 ```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -96,7 +96,7 @@ wsrep_node_name=pxc1
 sudo systemctl start mysql@bootstrap.service
 ```
 
-## Для  PXC2
+### Для  PXC2
 
 ```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -112,7 +112,7 @@ wsrep_node_name=pxc2
 sudo systemctl start mysql
 ```
 
-## Для  PXC3
+### Для  PXC3
 
 ```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -135,6 +135,10 @@ wsrep_cluster_size должен быть равен трём
 ```mysql
 > show status like 'wsrep%';
 ```
+
+![alt text](image-15.png)
+
+Смотрим статусы всех нод
 
 Первая нода:
 ![alt text](image-1.png)
