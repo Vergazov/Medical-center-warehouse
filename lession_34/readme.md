@@ -93,7 +93,7 @@ db.test.find({ year: 1987 })
 
 ![alt text](image-9.png)
 
-запрос на поиск высх фильмов жанра комедии
+запрос на поиск фильмов жанра комедии
 ```js
 db.test.find({ genres: "Comedy" })
 ```
