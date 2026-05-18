@@ -65,3 +65,6 @@
 
 ### ✒️ Занятие 33. Развернуть кластер MySQL
 1. [Развернуть кластер MySQL](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_33/readme.md)
+
+### ✒️ Занятие 34. Базовые возможности mongodb
+1. [Базовые возможности mongodb](https://github.com/Vergazov/Medical-center-warehouse/blob/main/lession_34/readme.md)
