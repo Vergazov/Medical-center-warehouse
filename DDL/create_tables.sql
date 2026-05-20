@@ -45,9 +45,11 @@ CREATE TABLE companies (
 CREATE TABLE employees (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    birth_date DATE,
     email VARCHAR(50),
     phone VARCHAR(20),
-    address VARCHAR(255)
+    address VARCHAR(255),
+    speciality_id INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE employees_companies (
@@ -74,6 +76,18 @@ CREATE TABLE nomenclatures (
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME,
     deleted_at DATETIME
+
+    CONSTRAINT fk_nomenclatures_unit
+        FOREIGN KEY (unit_id)
+        REFERENCES units(id),
+
+    CONSTRAINT fk_nomenclatures_type
+        FOREIGN KEY (type_id)
+        REFERENCES types(id),
+
+    CONSTRAINT fk_nomenclatures_specialty
+        FOREIGN KEY (spec_id)
+        REFERENCES specialties(id)
 );
 
 CREATE TABLE purchase_invoices (
@@ -127,6 +141,24 @@ CREATE TABLE cancellations (
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME,
     deleted_at DATETIME
+);
+
+-- Таблица для логов
+-- Типы логов atype:
+-- 1 - Создание номенклатуры
+-- 2 - Редактирование номенклатуры
+-- 3 - Удаление номенклатуры
+-- 11 - Создание приходной накладной
+-- 12 - Редактирование приходной накладной
+-- 13 - Удаление приходной накладной
+-- 21 - Создание номенклатуры
+-- 22 - Редактирование номенклатуры
+-- 23 - Удаление номенклатуры
+CREATE TABLE action_logs (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    atype TINYINT UNSIGNED NOT NULL,
+    log TEXT,
+    created_at DATETIME NOT NULL DEFAULT NOW()
 );
 
 -- ALTER TABLE nomenclature_units ADD CONSTRAINT fk_nomenclature_units
