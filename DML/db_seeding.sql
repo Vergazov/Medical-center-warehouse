@@ -1,4 +1,3 @@
->хранимая процедура которая будет создавать тестовые данные
 use medical_center_warehouse;
 
 INSERT INTO types (name) VALUES 
@@ -14,7 +13,7 @@ INSERT INTO specialties (name) VALUES
 ('клиническая лабораторная диагностика'),
 ('акушерство и гинекология'),
 ('кардиология'),
-('стоматология терапевтическая');
+('стоматология терапевтическая'),
 ('прочие');
 
 INSERT INTO units (name) VALUES 
@@ -44,7 +43,7 @@ INSERT INTO companies (name,inn,address) VALUES
 ('Медси','7756789012', 'г. Москва, ул Больничная д 3'),
 ('Евромед','7745678901', 'г. Москва, ул Больничная д 3 к. 1');
 
-INSERT INTO employees (name,birthDate,email,phone,address,speciality_id) VALUES
+INSERT INTO employees (name,birth_date,address,email,phone,speciality_id) VALUES
 ('Анна Владимировна Соколова','1985-03-15','г. Москва, ул. Тверская, д. 10, кв. 45','a.sokolova@medclinic.ru','+7(905)123-45-67', 6),
 ('Игорь Петрович Морозов','1978-11-22','г. Москва, Ленинградский пр-т, д. 56, кв. 123','i.morozov@medclinic.ru','+7(916)789-12-34', 6),
 ('Елена Андреевна Лебедева','1992-08-07','г. г. Москва, ул. Арбат, д. 25, кв. 8','e.lebedeva@medclinic.ru','+7(909)567-89-01', 6);
@@ -53,7 +52,7 @@ INSERT INTO employees_companies (company_id,employee_id) VALUES
 (1,1),
 (1,2),
 (2,1),
-(3,2);
+(2,3);
 
 INSERT INTO storages (name,company_id) VALUES 
 ('Склад Медси',1),
@@ -67,8 +66,11 @@ INSERT INTO nomenclatures (name,unit_id,type_id,spec_id,inv_number,serial_number
 ('Тонометр автоматический медицинский', 1, 3, 4,'INV-EQ-0001','SN-TON-240315-001','Оборудование для измерения артериального давления'),
 ('Кушетка медицинская смотровая', 1, 4, 6, NULL, NULL,NULL);
 
--- создать после создания nomenclatures
--- 2 -  коробка, 1 - перчатки, 10 сколько в коробке упаковок перчаток у перчаток должно быть несколько упаковок() 
+-- таблица для конвертации единиц измерения поставщика в базовую единицу измерения
+-- Пример:
+-- 2 - коробка(единица измерения в которой пришел товар от поставщика), 
+-- 1 - перчатки(товар, базовая единица измерения которого отличается от того в которой приходит от поставщика), 
+-- 10 сколько упаковок в коробке 
 INSERT INTO nomenclature_units (unit_id,nomenclature_id,multiplier) VALUES 
 (2,1,10);
 
@@ -122,3 +124,48 @@ INSERT INTO cancellations (amount, price, manufactured_at, expires_at, nomenclat
 (1, 4850.00, NULL, NULL, 4, (SELECT id FROM expense_invoices WHERE doc_number = 'РН-2025-0003')),
 (2, 870.00, '2025-04-01', '2028-04-01', 1, (SELECT id FROM expense_invoices WHERE doc_number = 'РН-2025-0003')),
 (1, 14500.00, NULL, NULL, 5, (SELECT id FROM expense_invoices WHERE doc_number = 'РН-2025-0003'));
+
+-- редактирую created_at для отчетов
+SET SQL_SAFE_UPDATES = 0;
+UPDATE purchase_invoices
+SET created_at = CASE id
+    WHEN 1 THEN '2025-01-01 09:00:00'
+    WHEN 2 THEN '2025-01-05 10:00:00'
+    WHEN 3 THEN '2025-02-01 11:00:00'
+    WHEN 4 THEN '2025-03-01 12:00:00'
+    WHEN 5 THEN '2025-04-01 13:00:00'
+END;
+
+
+UPDATE parishes
+SET created_at = CASE id
+    WHEN 1 THEN '2025-01-01 09:10:00'
+    WHEN 2 THEN '2025-01-01 09:15:00'
+    WHEN 3 THEN '2025-01-05 10:10:00'
+    WHEN 4 THEN '2025-02-01 11:10:00'
+    WHEN 5 THEN '2025-02-01 11:15:00'
+    WHEN 6 THEN '2025-03-01 12:10:00'
+    WHEN 7 THEN '2025-03-01 12:15:00'
+    WHEN 8 THEN '2025-03-01 12:20:00'
+    WHEN 9 THEN '2025-04-01 13:10:00'
+    WHEN 10 THEN '2025-04-01 13:15:00'
+END;
+
+UPDATE expense_invoices
+SET created_at = CASE id
+    WHEN 1 THEN '2025-04-10 09:00:00'
+    WHEN 2 THEN '2025-04-15 10:00:00'
+    WHEN 3 THEN '2025-04-20 11:00:00'
+END;
+
+
+UPDATE cancellations
+SET created_at = CASE id
+    WHEN 1 THEN '2025-04-10 09:10:00'
+    WHEN 2 THEN '2025-04-15 10:10:00'
+    WHEN 3 THEN '2025-04-15 10:15:00'
+    WHEN 4 THEN '2025-04-20 11:10:00'
+    WHEN 5 THEN '2025-04-20 11:15:00'
+    WHEN 6 THEN '2025-04-20 11:20:00'
+END;
+SET SQL_SAFE_UPDATES = 1;

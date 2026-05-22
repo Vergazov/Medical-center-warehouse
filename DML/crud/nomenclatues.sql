@@ -224,33 +224,198 @@ BEGIN
 END
 
 /**
-TODO: 
-1. Процедура просмотра накладной
-2. Процедура редактирования накладной с логированием
-3. Процедура архивирования накладной с логированием
-4. Протестировать работу фильтра архивированных накладных
-
-5. CRUD операции над приходными и расходынами накладными
-Схема создания:
-
-create_purchase_invoice()
-    создает только шапку накладной
-
-create_parish()
-    создает одну строку прихода
-
-create_purchase_invoice_with_items()
-    главная процедура:
-        START TRANSACTION
-        CALL create_purchase_invoice(...)
-        CALL create_parish(...)
-        CALL create_parish(...)
-        ...
-        COMMIT
-
-6. Составить список аналитических запросов, реалзовать их
-7. CRUD операции над каждым справочником
-8. Реализовать репликацию на 2 реплики + если успею настроить proxy sql
+Процедура для получения номенклатуры по id
 */
 
+CREATE DEFINER=`root`@`%` PROCEDURE `show_nomenclature`(IN p_id INT)
+BEGIN
+	SELECT
+		n.id,
+		n.name,
+		u.name as unit_name,
+		t.name as type_name,
+		s.name as spec_name,
+		n.inv_number,
+		n.serial_number,
+		n.comment
+	FROM nomenclatures as n
+	JOIN units u on n.unit_id = u.id
+	JOIN types t on n.type_id = t.id
+	JOIN specialties s on n.spec_id = s.id
+	WHERE 1=1
+    AND n.id = p_id;
+END
 
+
+/**
+Процедура для редактирования номенклатуры
+*/
+
+CREATE DEFINER=`root`@`%` PROCEDURE `update_nomenclature`(
+IN p_nomenclature_id INT,
+IN p_name VARCHAR(255),
+IN p_unit_id INT,
+IN p_type_id INT,
+IN p_spec_id INT,
+IN p_user_id INT,
+IN p_inv_number VARCHAR(100),
+IN p_serial_number VARCHAR(100),
+IN p_comment VARCHAR(255)
+)
+BEGIN
+	DECLARE v_user_name VARCHAR(100);
+    DECLARE v_user_birth_date VARCHAR(100);
+    DECLARE v_updated_count INT;
+    DECLARE v_nomenclature_count INT;
+        
+	IF p_user_id IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указан пользователь';
+	END IF;
+    
+    SELECT name, birth_date
+    INTO v_user_name, v_user_birth_date
+    FROM employees
+    WHERE id = p_user_id
+    LIMIT 1;
+    
+	IF v_user_name IS NULL OR v_user_name = '' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Пользователь не найден';
+    END IF;
+    
+    SELECT COUNT(*) INTO v_nomenclature_count FROM nomenclatures
+    WHERE id = p_nomenclature_id;
+    
+    IF v_nomenclature_count = 0 THEN 
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Такой номенклатуры не существует';
+	END IF;
+    
+    START TRANSACTION;
+    
+    UPDATE nomenclatures 
+    SET
+		name = COALESCE(p_name, name),
+        unit_id = COALESCE(p_unit_id, unit_id),
+        type_id = COALESCE(p_type_id, type_id),
+        spec_id = COALESCE(p_spec_id, spec_id),
+        inv_number = COALESCE(p_inv_number, inv_number),
+        serial_number = COALESCE(p_serial_number, serial_number),
+        comment = COALESCE(p_comment, comment),
+        updated_at = NOW()
+	WHERE nomenclatures.id = p_nomenclature_id;
+        
+	SELECT name, birth_date INTO v_user_name, v_user_birth_date FROM employees WHERE id = p_user_id;
+    
+	INSERT INTO action_logs(atype,log) VALUES(11, CONCAT('Пользователь ', v_user_name,'(',v_user_birth_date, ')', ' отредактировал номенклатуру с id',' id:(',p_nomenclature_id,')' ));
+	
+    COMMIT;
+END;
+
+
+
+/**
+Процедура архивирования номенклатуры
+*/
+
+CREATE DEFINER=`root`@`%` PROCEDURE `delete_nomenclature`(IN p_nomenclature_id INT, IN p_user_id INT)
+BEGIN
+
+	DECLARE v_user_name VARCHAR(100);
+    DECLARE v_user_birth_date VARCHAR(100);
+    DECLARE v_nomenclature_count INT;
+    
+    IF p_user_id IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указан пользователь';
+	END IF;
+    
+    SELECT name, birth_date
+    INTO v_user_name, v_user_birth_date
+    FROM employees
+    WHERE id = p_user_id
+    LIMIT 1;
+    
+	IF v_user_name IS NULL OR v_user_name = '' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Пользователь не найден';
+    END IF;
+    
+	IF p_nomenclature_id IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указана номенклатура';
+	END IF;
+
+	SELECT COUNT(*) INTO v_nomenclature_count FROM nomenclatures
+    WHERE 1=1
+    AND id = p_nomenclature_id
+    AND deleted_at IS NULL;
+    
+    IF v_nomenclature_count = 0 THEN 
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Такой номенклатуры не существует или она уже архивирована';
+	END IF;
+
+    START TRANSACTION;
+    
+	UPDATE nomenclatures
+		SET deleted_at = now()
+		WHERE nomenclatures.id = p_nomenclature_id;
+        
+	INSERT INTO action_logs(atype,log) VALUES(11, CONCAT('Пользователь ', v_user_name,'(',v_user_birth_date, ')', ' архивировал номенклатуру с id - ',p_nomenclature_id ));
+	
+    COMMIT;
+END
+
+/**
+Процедура разархивирования номенклатуры
+*/
+
+CREATE DEFINER=`root`@`%` PROCEDURE `restore_nomenclature`(IN p_nomenclature_id INT, IN p_user_id INT)
+BEGIN
+	DECLARE v_user_name VARCHAR(100);
+    DECLARE v_user_birth_date VARCHAR(100);
+    DECLARE v_nomenclature_count INT;
+    
+    IF p_user_id IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указан пользователь';
+	END IF;
+    
+    SELECT name, birth_date
+    INTO v_user_name, v_user_birth_date
+    FROM employees
+    WHERE id = p_user_id
+    LIMIT 1;
+    
+	IF v_user_name IS NULL OR v_user_name = '' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Пользователь не найден';
+    END IF;
+    
+	IF p_nomenclature_id IS NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указана номенклатура';
+	END IF;
+
+	SELECT COUNT(*) INTO v_nomenclature_count FROM nomenclatures
+    WHERE 1=1
+    AND id = p_nomenclature_id
+    AND deleted_at IS NOT NULL;
+    
+    IF v_nomenclature_count = 0 THEN 
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Такой номенклатуры не существует или она не была архивирована';
+	END IF;
+
+    START TRANSACTION;
+    
+	UPDATE nomenclatures
+		SET deleted_at = NULL
+		WHERE nomenclatures.id = p_nomenclature_id;
+        
+	INSERT INTO action_logs(atype,log) VALUES(4, CONCAT('Пользователь ', v_user_name,'(',v_user_birth_date, ')', ' разархивировал номенклатуру с id - ',p_nomenclature_id ));
+	-- TODO - если эта позиция - единственная на всю накладную, значит надо разархивировать и саму накладную (она скорее всего тогда тоже в архиве)
+    COMMIT;
+END
