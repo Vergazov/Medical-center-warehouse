@@ -4,12 +4,14 @@
 База - medical_center_warehouse
 
 Роли: 
-    аналитик(analyst) - имеет доступ только к аналитическим отчетам
-    алминистратор склада(warehouse_manager) - имеет полные права на операции со складом
+
+    - аналитик(analyst) - имеет доступ только к аналитическим отчетам
+    - администратор склада(warehouse_manager) - имеет полные права на операции со складом
 
 Создаем конкертных пользователей и назначаем им роли
-    пользователь analyst с ролью analyst
-    пользователь warehouse_manager с ролью warehouse_manager
+
+    - пользователь analyst с ролью analyst
+    - пользователь warehouse_manager с ролью warehouse_manager
 
 ## Файл create_tables.sql
 
