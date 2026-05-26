@@ -34,14 +34,32 @@ INSERT INTO accounting_objects (name) VALUES
 ('Педиатрия'),
 ('Гинекология');
 
-INSERT INTO providers (name,inn,email,phone) VALUES 
+INSERT INTO contact_types(name) VALUES
+('Телефон'),
+('Email'),
+('Telegram'),
+('Вконтакте');
+
+INSERT INTO vendors (name,inn,email,phone) VALUES 
 ('Медицинские технологии и решения (МедТехРешение)','7816501234','medteh@mail.ru','84952305748'),
 ('Фармацевтическая компания «Вита-Мед»','7824506789','vitaMed@mail.ru','8881458569'),
 ('Поставка медоборудования «Диагност-Сервис»','7832504321','d-servis@mail.ru','223085436974');
 
+INSERT INTO vendors_contacts (vendor_id, type_id, value) VALUES
+(1, 1, '+7 (495) 230-57-48'),
+(1, 2, 'support@medteh.ru'),
+(2, 1, '+7 (881) 458-56-90'),
+(3, 3, '@diagnost_service');
+
 INSERT INTO companies (name,inn,address) VALUES 
 ('Медси','7756789012', 'г. Москва, ул Больничная д 3'),
 ('Евромед','7745678901', 'г. Москва, ул Больничная д 3 к. 1');
+
+INSERT INTO companies_contacts (company_id, type_id, value) VALUES
+(1, 1, '+7 (495) 111-11-11'),
+(1, 2, 'info@medsi.ru'),
+(2, 1, '+7 (495) 222-22-22'),
+(2, 4, '+7 (999) 333-44-55');
 
 INSERT INTO employees (name,birth_date,address,email,phone,speciality_id) VALUES
 ('Анна Владимировна Соколова','1985-03-15','г. Москва, ул. Тверская, д. 10, кв. 45','a.sokolova@medclinic.ru','+7(905)123-45-67', 6),
@@ -59,33 +77,40 @@ INSERT INTO storages (name,company_id) VALUES
 ('Склад Евромед',2);
 
 
-INSERT INTO nomenclatures (name,unit_id,type_id,spec_id,inv_number,serial_number,comment) VALUES 
-('Перчатки нитриловые нестерильные размер M, 100 шт/уп', 3, 6, 6, NULL, NULL,'Расходный материал для процедурных кабинетов и осмотров'),
-('Маска медицинская одноразовая трехслойная, 50 шт/уп', 3, 6, 6, NULL, NULL,NULL),
-('Шприц одноразовый стерильный 5 мл с иглой', 1, 6, 6, NULL, NULL,'Для инъекций и забора лекарственных средств'),
-('Тонометр автоматический медицинский', 1, 3, 4,'INV-EQ-0001','SN-TON-240315-001','Оборудование для измерения артериального давления'),
-('Кушетка медицинская смотровая', 1, 4, 6, NULL, NULL,NULL);
+INSERT INTO items (name,unit_id,type_id,inv_number,serial_number,comment) VALUES 
+('Перчатки нитриловые нестерильные размер M, 100 шт/уп', 3, 6, NULL, NULL,'Расходный материал для процедурных кабинетов и осмотров'),
+('Маска медицинская одноразовая трехслойная, 50 шт/уп', 3, 6, NULL, NULL,NULL),
+('Шприц одноразовый стерильный 5 мл с иглой', 1, 6, NULL, NULL,'Для инъекций и забора лекарственных средств'),
+('Тонометр автоматический медицинский', 1, 3,'INV-EQ-0001','SN-TON-240315-001','Оборудование для измерения артериального давления'),
+('Кушетка медицинская смотровая', 1, 4, NULL, NULL,NULL);
 
 -- таблица для конвертации единиц измерения поставщика в базовую единицу измерения
 -- Пример:
 -- 2 - коробка(единица измерения в которой пришел товар от поставщика), 
 -- 1 - перчатки(товар, базовая единица измерения которого отличается от того в которой приходит от поставщика), 
 -- 10 сколько упаковок в коробке 
-INSERT INTO nomenclature_units (unit_id,nomenclature_id,multiplier) VALUES 
+INSERT INTO items_units (unit_id,item_id,multiplier) VALUES 
 (2,1,10);
 
+INSERT INTO items_specs (item_id, spec_id) VALUES
+(1,6),
+(2,6),
+(3,1),
+(4,4),
+(5,6);
+
 -- Создаем приходные накладные
-INSERT INTO purchase_invoices (doc_number, provider_id, employee_id, company_id, storage_id, comment) VALUES
+INSERT INTO purchase_invoices (doc_number, vendor_id, employee_id, company_id, storage_id, comment) VALUES
 ('ПН-2025-0001', 1, 1, 1, 1, 'Первичная закупка расходных материалов'),
 ('ПН-2025-0002', 2, 2, 1, 1, NULL),
 ('ПН-2025-0003', 3, 1, 2, 2, NULL),
 ('ПН-2025-0004', 1, 3, 2, 2, 'Поставка оборудования для кабинетов'),
 ('ПН-2025-0005', 2, 2, 1, 1, NULL);
 
-INSERT INTO parishes (amount, price, unit_id, manufactured_at, expires_at, nomenclature_id, purchase_invoice_id, comment) VALUES
+INSERT INTO purchases (amount, price, unit_id, manufactured_at, expires_at, item_id, purchase_invoice_id, comment) VALUES
 -- ПН-2025-0001
-(20, 850.00, 3, '2025-01-10', '2028-01-10', 1, (SELECT id FROM purchase_invoices WHERE doc_number = 'ПН-2025-0001'), NULL),
-(15, 420.00, 3, '2025-01-12', '2028-01-12', 2, (SELECT id FROM purchase_invoices WHERE doc_number = 'ПН-2025-0001'), 'Для процедурных и смотровых кабинетов'),
+(20, 850.00, 3, '2025-01-10', '2026-01-10', 1, (SELECT id FROM purchase_invoices WHERE doc_number = 'ПН-2025-0001'), NULL),
+(15, 420.00, 3, '2025-01-12', '2026-06-20', 2, (SELECT id FROM purchase_invoices WHERE doc_number = 'ПН-2025-0001'), 'Для процедурных и смотровых кабинетов'),
 
 -- ПН-2025-0002
 (300, 18.50, 1, '2025-02-01', '2030-02-01', 3, (SELECT id FROM purchase_invoices WHERE doc_number = 'ПН-2025-0002'), NULL),
@@ -111,7 +136,7 @@ VALUES
 ('РН-2025-0002', 1, 1, 'Передача расходных материалов в регистратуру'),
 ('РН-2025-0003', 2, 4, NULL);
 
-INSERT INTO cancellations (amount, price, manufactured_at, expires_at, nomenclature_id, expense_invoice_id) VALUES
+INSERT INTO expenses (amount, price, manufactured_at, expires_at, item_id, expense_invoice_id) VALUES
 
 -- РН-2025-0001
 (4, 850.00, '2025-01-10', '2028-01-10', 1, (SELECT id FROM expense_invoices WHERE doc_number = 'РН-2025-0001')),
@@ -137,7 +162,7 @@ SET created_at = CASE id
 END;
 
 
-UPDATE parishes
+UPDATE purchases
 SET created_at = CASE id
     WHEN 1 THEN '2025-01-01 09:10:00'
     WHEN 2 THEN '2025-01-01 09:15:00'
@@ -159,7 +184,7 @@ SET created_at = CASE id
 END;
 
 
-UPDATE cancellations
+UPDATE expenses
 SET created_at = CASE id
     WHEN 1 THEN '2025-04-10 09:10:00'
     WHEN 2 THEN '2025-04-15 10:10:00'

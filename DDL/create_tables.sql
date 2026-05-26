@@ -13,31 +13,18 @@ CREATE TABLE units (
     name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE nomenclature_units (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    unit_id INT UNSIGNED NOT NULL,
-    nomenclature_id INT UNSIGNED NOT NULL,
-    multiplier SMALLINT UNSIGNED NOT NULL,
-
-     CONSTRAINT fk_nomenclature_units_unit
-        FOREIGN KEY (unit_id)
-        REFERENCES units(id)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
-
-    CONSTRAINT fk_nomenclature_units_nomenclature
-        FOREIGN KEY (nomenclature_id)
-        REFERENCES nomenclatures(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
 
 CREATE TABLE accounting_objects (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE providers (
+CREATE TABLE contact_types(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE vendors (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     inn VARCHAR(12) NOT NULL,
@@ -45,11 +32,49 @@ CREATE TABLE providers (
     phone VARCHAR(20)
 );
 
+CREATE TABLE vendors_contacts(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    vendor_id INT UNSIGNED NOT NULL,
+    type_id INT UNSIGNED NOT NULL,
+    value VARCHAR(100) NOT NULL,
+
+    CONSTRAINT fk_vendors_contacts_contact_types
+        FOREIGN KEY (type_id)
+        REFERENCES contact_types(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_vendors_contacts_vendors
+        FOREIGN KEY (vendor_id)
+        REFERENCES vendors(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 CREATE TABLE companies (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     inn VARCHAR(12) NOT NULL,
     address VARCHAR(255)
+);
+
+CREATE TABLE companies_contacts(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    company_id INT UNSIGNED NOT NULL,
+    type_id INT UNSIGNED NOT NULL,
+    value VARCHAR(100) NOT NULL,
+
+    CONSTRAINT fk_companies_contacts_contact_types
+        FOREIGN KEY (type_id)
+        REFERENCES contact_types(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_vendors_contacts_companies
+        FOREIGN KEY (company_id)
+        REFERENCES companies(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE employees (
@@ -98,12 +123,11 @@ CREATE TABLE storages (
         ON DELETE RESTRICT
 );
 
-CREATE TABLE nomenclatures (
+CREATE TABLE items (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     unit_id INT UNSIGNED NOT NULL,
     type_id INT UNSIGNED NOT NULL,
-    spec_id INT UNSIGNED NOT NULL,
     inv_number VARCHAR(100),
     serial_number VARCHAR(100),
     comment TEXT,
@@ -111,29 +135,60 @@ CREATE TABLE nomenclatures (
     updated_at DATETIME,
     deleted_at DATETIME,
 
-     CONSTRAINT fk_nomenclatures_unit
+     CONSTRAINT fk_items_unit
         FOREIGN KEY (unit_id)
         REFERENCES units(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_nomenclatures_type
+    CONSTRAINT fk_items_type
         FOREIGN KEY (type_id)
         REFERENCES types(id)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT,
-
-    CONSTRAINT fk_nomenclatures_specialty
-        FOREIGN KEY (spec_id)
-        REFERENCES specialties(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
 );
 
+CREATE TABLE items_units (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    unit_id INT UNSIGNED NOT NULL,
+    item_id INT UNSIGNED NOT NULL,
+    multiplier SMALLINT UNSIGNED NOT NULL,
+
+     CONSTRAINT fk_item_units_unit
+        FOREIGN KEY (unit_id)
+        REFERENCES units(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_item_units_item
+        FOREIGN KEY (item_id)
+        REFERENCES items(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE items_specs (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    item_id INT UNSIGNED NOT NULL,
+    spec_id INT UNSIGNED NOT NULL,
+
+    CONSTRAINT fk_items_specs_item
+        FOREIGN KEY (item_id)
+        REFERENCES items(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_items_specs_spec
+        FOREIGN KEY ( spec_id)
+        REFERENCES specialties(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
 CREATE TABLE purchase_invoices (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    doc_number VARCHAR(100) NOT NULL,
-    provider_id INT UNSIGNED NOT NULL,
+    doc_number VARCHAR(100) UNIQUE NOT NULL,
+    vendor_id INT UNSIGNED NOT NULL,
     employee_id INT UNSIGNED NOT NULL,
     company_id INT UNSIGNED NOT NULL,
     storage_id INT UNSIGNED NOT NULL,
@@ -142,9 +197,9 @@ CREATE TABLE purchase_invoices (
     updated_at DATETIME,
     deleted_at DATETIME,
 
-    CONSTRAINT fk_purchase_invoices_provider
-        FOREIGN KEY (provider_id)
-        REFERENCES providers(id)
+    CONSTRAINT fk_purchase_invoices_vendor
+        FOREIGN KEY (vendor_id)
+        REFERENCES vendors(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
@@ -167,34 +222,34 @@ CREATE TABLE purchase_invoices (
         ON DELETE RESTRICT
 );
 
-CREATE TABLE parishes (
+CREATE TABLE purchases (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    amount SMALLINT NOT NULL,
+    amount DECIMAL(10,3) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     vat INT UNSIGNED,
     unit_id INT UNSIGNED NOT NULL,
     manufactured_at DATETIME,
     expires_at DATETIME,
-    nomenclature_id INT UNSIGNED NOT NULL,
+    item_id INT UNSIGNED NOT NULL,
     purchase_invoice_id INT UNSIGNED NOT NULL,
     comment TEXT,
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME,
     deleted_at DATETIME,
 
-    CONSTRAINT fk_parishes_unit
+    CONSTRAINT fk_purchases_unit
         FOREIGN KEY (unit_id)
         REFERENCES units(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_parishes_nomenclature
-        FOREIGN KEY (nomenclature_id)
-        REFERENCES nomenclatures(id)
+    CONSTRAINT fk_purchases_item
+        FOREIGN KEY (item_id)
+        REFERENCES items(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_parishes_purchase_invoice
+    CONSTRAINT fk_purchases_purchase_invoice
         FOREIGN KEY (purchase_invoice_id)
         REFERENCES purchase_invoices(id)
         ON UPDATE CASCADE
@@ -224,25 +279,25 @@ CREATE TABLE expense_invoices (
         ON DELETE RESTRICT
 );
 
-CREATE TABLE cancellations (
+CREATE TABLE expenses (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    amount SMALLINT NOT NULL,
+    amount DECIMAL(10,3) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     manufactured_at DATETIME,
     expires_at DATETIME,
-    nomenclature_id INT UNSIGNED NOT NULL,
+    item_id INT UNSIGNED NOT NULL,
     expense_invoice_id INT UNSIGNED NOT NULL,
     created_at DATETIME NOT NULL DEFAULT NOW(),
     updated_at DATETIME,
     deleted_at DATETIME,
     
-    CONSTRAINT fk_cancellations_nomenclature
-        FOREIGN KEY (nomenclature_id)
-        REFERENCES nomenclatures(id)
+    CONSTRAINT fk_expenses_item
+        FOREIGN KEY (item_id)
+        REFERENCES items(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,
 
-    CONSTRAINT fk_cancellations_expense_invoice
+    CONSTRAINT fk_expenses_expense_invoice
         FOREIGN KEY (expense_invoice_id)
         REFERENCES expense_invoices(id)
         ON UPDATE CASCADE
@@ -284,3 +339,10 @@ CREATE TABLE action_logs (
     log TEXT,
     created_at DATETIME NOT NULL DEFAULT NOW()
 );
+
+-- Таблица для сохранения логов ошибок
+CREATE TABLE error_logs (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    log TEXT,
+    created_at DATETIME NOT NULL DEFAULT NOW()
+ );

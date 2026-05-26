@@ -416,6 +416,5 @@ BEGIN
 		WHERE nomenclatures.id = p_nomenclature_id;
         
 	INSERT INTO action_logs(atype,log) VALUES(4, CONCAT('Пользователь ', v_user_name,'(',v_user_birth_date, ')', ' разархивировал номенклатуру с id - ',p_nomenclature_id ));
-	-- TODO - если эта позиция - единственная на всю накладную, значит надо разархивировать и саму накладную (она скорее всего тогда тоже в архиве)
     COMMIT;
 END
