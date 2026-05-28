@@ -1,0 +1,40 @@
+services:
+  master:
+    image: percona/percona-server:8.0
+    environment:
+      - LANG=C.UTF-8
+      - LC_ALL=C.UTF-8
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - master_data:/var/lib/mysql
+      - ./share:/home/root
+      - ./config/master/master.cnf:/etc/mysql/my.cnf
+      - ./config/.my.cnf:/root/.my.cnf
+      - ./config/master/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3311:3306"
+
+  slave:
+    image: percona/percona-server:8.0
+    environment:
+      - LANG=C.UTF-8 
+      - LC_ALL=C.UTF-8 
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - slave_data:/var/lib/mysql
+      - ./share:/home/root
+      - ./config/slave/slave.cnf:/etc/mysql/my.cnf
+      - ./config/.my.cnf:/root/.my.cnf
+    ports:
+      - "3312:3306"
+  
+  xtrabackup:
+    image: percona/percona-xtrabackup:8.0
+    volumes:
+      - master_data:/var/lib/mysql
+      - ./share:/backup
+    entrypoint: ["sleep", "infinity"]
+  
+volumes:
+  master_data:
+  slave_data:
