@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS medical_center_warehouse;
+
+USE medical_center_warehouse;
+
 CREATE TABLE types (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
