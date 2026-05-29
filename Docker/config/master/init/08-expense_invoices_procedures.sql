@@ -97,7 +97,10 @@ END $$
 
 -- Архивировать расходную накладуню
 
-CREATE DEFINER=`root`@`%` PROCEDURE `delete_expense_invoice`(IN p_expense_invoice_id INT, IN p_user_id INT)
+CREATE DEFINER=`root`@`%` PROCEDURE `delete_expense_invoice`(
+	IN p_expense_invoice_id INT, 
+	IN p_user_id INT
+)
 BEGIN
 	DECLARE v_user_name VARCHAR(100);
     DECLARE v_user_birth_date VARCHAR(100);
