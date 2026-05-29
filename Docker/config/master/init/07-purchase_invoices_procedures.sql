@@ -129,7 +129,10 @@ END $$
 
 -- Архивировать приходную накладную
 
-CREATE DEFINER=`root`@`%` PROCEDURE `delete_purchase_invoice`(IN p_purchase_invoice_id INT, IN p_user_id INT)
+CREATE DEFINER=`root`@`%` PROCEDURE `delete_purchase_invoice`(
+    IN p_purchase_invoice_id INT, 
+    IN p_user_id INT
+)
 BEGIN
 	DECLARE v_user_name VARCHAR(100);
     DECLARE v_user_birth_date VARCHAR(100);
@@ -222,7 +225,10 @@ END $$
 
 -- Восстановить приходную накладную
 
-CREATE DEFINER=`root`@`%` PROCEDURE `restore_purchase_invoice`(IN p_purchase_invoice_id INT, IN p_user_id INT)
+CREATE DEFINER=`root`@`%` PROCEDURE `restore_purchase_invoice`(
+    IN p_purchase_invoice_id INT,
+    IN p_user_id INT
+)
 BEGIN
 	DECLARE v_user_name VARCHAR(100);
     DECLARE v_user_birth_date VARCHAR(100);
