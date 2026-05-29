@@ -23,6 +23,9 @@ BEGIN
 	DECLARE error_message TEXT;
     DECLARE v_created_purchase_id INT;
 	DECLARE v_expected_error BOOLEAN DEFAULT FALSE;
+    DECLARE v_amount INT;
+    DECLARE v_multiplier INT;
+    DECLARE v_default_unit_id INT;
     
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
@@ -95,6 +98,35 @@ BEGIN
 		SET v_expected_error = TRUE;
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Пользователь не найден';
+    END IF;
+    
+    SELECT unit_id INTO v_default_unit_id
+    FROM items WHERE id = p_item_id
+    LIMIT 1;
+    
+    IF v_default_unit_id != p_unit_id THEN
+    
+		SELECT multiplier INTO v_multiplier
+		FROM items_units	
+		WHERE 1=1
+		AND item_id = p_item_id
+		AND unit_id = p_unit_id
+		LIMIT 1;
+        
+        IF v_multiplier IS NOT NULL THEN
+		
+			SET p_amount = p_amount * v_multiplier;
+			SET p_price = p_price / p_amount;
+        
+        ELSE
+        
+			SET v_expected_error = TRUE;
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Добавьте значение для конвертации';
+            
+		END IF;
+        
+    
     END IF;
     
     START TRANSACTION;

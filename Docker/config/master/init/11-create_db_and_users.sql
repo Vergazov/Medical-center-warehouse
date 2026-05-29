@@ -4,10 +4,10 @@ CREATE ROLE IF NOT EXISTS 'analyst'; -- разрешаю только запус
 CREATE ROLE IF NOT EXISTS 'warehouse_manager'; -- разрешаю все, кроме выдачи прав
 
 -- add procedures and uncomment
--- GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_storage_balance TO 'analyst';
--- GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_expired_nomenclature TO 'analyst';
--- GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_soon_expired_nomenclature TO 'analyst';
--- GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_nomenclature_movement TO 'analyst';
+GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_storage_balance TO 'analyst';
+GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_expired_items TO 'analyst';
+GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_soon_expired_items TO 'analyst';
+GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_items_movement TO 'analyst';
 
 GRANT ALL PRIVILEGES ON medical_center_warehouse.* TO 'warehouse_manager';
 

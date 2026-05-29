@@ -366,4 +366,63 @@ BEGIN
     SELECT 100 AS status;
 END $$
 
+-- Создание значений для конвертации единиц измерения
+
+CREATE DEFINER=`root`@`%` PROCEDURE `create_items_units`(
+IN p_unit_id INT,
+IN p_item_id INT,
+IN p_multiplier INT
+)
+BEGIN
+
+	DECLARE error_message TEXT;
+	DECLARE v_expected_error BOOLEAN DEFAULT FALSE;
+
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION
+	BEGIN
+		GET DIAGNOSTICS CONDITION 1 
+			error_message = MESSAGE_TEXT;
+        
+        ROLLBACK;
+        
+		IF v_expected_error = TRUE THEN
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = error_message;
+		ELSE
+			INSERT INTO error_logs(log) VALUES(error_message);
+			SIGNAL SQLSTATE '45000'
+			SET MESSAGE_TEXT = 'Произошла ошибка при выполнении процедуры';
+        END IF;
+    END;
+
+	IF p_unit_id IS NULL THEN
+		SET v_expected_error = TRUE;
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указана единица измерения для конвертации';
+	END IF;
+    
+	IF p_item_id IS NULL THEN
+		SET v_expected_error = TRUE;
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указан товар';
+	END IF;
+    
+	IF p_multiplier IS NULL THEN
+		SET v_expected_error = TRUE;
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Не указан множитель';
+	END IF;
+    
+    INSERT INTO items_units(
+		unit_id,
+		item_id,
+		multiplier
+    )
+    values(
+		p_unit_id,
+		p_item_id,
+		p_multiplier
+    );
+END $$
+
 DELIMITER ;
