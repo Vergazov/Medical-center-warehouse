@@ -158,6 +158,9 @@ BEGIN
 END $$
 
 -- Отчет по номенклатуре с истекшим сроком годности
+
+CREATE DEFINER=`root`@`%` PROCEDURE `get_expired_items`()
+BEGIN
 	SET lc_time_names = 'ru_RU';
     
 	SELECT 
@@ -170,6 +173,7 @@ END $$
 	AND p.deleted_at IS NULL
 	AND p.expires_at < NOW()
 	ORDER BY i.id;
+
 END $$
 
 -- Отчет по номенклатуре у которой скоро истечет срок годности

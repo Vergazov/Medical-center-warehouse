@@ -316,14 +316,14 @@ BEGIN
 END $$
 
 CREATE DEFINER=`root`@`%` PROCEDURE `update_expense`(
-IN p_expense_id INT,
-IN p_amount INT,
-IN p_price DECIMAL(10,2),
-IN p_manufactured_at DATETIME,
-IN p_expires_at DATETIME,
-IN p_item_id INT,
-IN p_expense_invoice_id INT,
-IN p_user_id INT
+    IN p_expense_id INT,
+    IN p_amount INT,
+    IN p_price DECIMAL(10,2),
+    IN p_manufactured_at DATETIME,
+    IN p_expires_at DATETIME,
+    IN p_item_id INT,
+    IN p_expense_invoice_id INT,
+    IN p_user_id INT
 )
 BEGIN
 	DECLARE v_user_name VARCHAR(100);

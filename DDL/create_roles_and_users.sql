@@ -13,11 +13,12 @@ GRANT ALL PRIVILEGES ON medical_center_warehouse.* TO 'warehouse_manager';
 CREATE USER IF NOT EXISTS 'warehouse_manager'@'localhost' IDENTIFIED BY '123';
 CREATE USER IF NOT EXISTS 'analyst'@'localhost' IDENTIFIED BY '123';
 
--- создаю пользователя для репликации
 CREATE USER IF NOT EXISTS 'repl'@'%' IDENTIFIED WITH mysql_native_password BY '123';
 
 GRANT 'warehouse_manager' TO 'warehouse_manager'@'localhost';
 GRANT 'analyst' TO 'analyst'@'localhost';
-GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'repl'@'%';
 
-FLUSH PRIVILEGES;
+SET DEFAULT ROLE 'warehouse_manager' TO 'warehouse_manager'@'localhost';
+SET DEFAULT ROLE 'analyst' TO 'analyst'@'localhost';
+
+GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'repl'@'%';
