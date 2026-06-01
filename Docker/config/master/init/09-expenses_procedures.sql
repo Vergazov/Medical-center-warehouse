@@ -1,5 +1,5 @@
 use medical_center_warehouse;
-скачков артем алекссевич
+
 DELIMITER $$
 
 -- Создать расход

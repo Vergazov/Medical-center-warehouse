@@ -12,6 +12,7 @@
 
     - пользователь analyst с ролью analyst
     - пользователь warehouse_manager с ролью warehouse_manager
+    - repl - пользователь для репликации
 
 ## Файл create_tables.sql
 
@@ -21,4 +22,4 @@
 
 ## Файл create_indexes.sql
 
-Создает индексы для полей таблиц (в работе)
+Создает индексы для полей таблиц

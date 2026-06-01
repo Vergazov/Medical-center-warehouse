@@ -161,31 +161,35 @@ END $$
 
 CREATE DEFINER=`root`@`%` PROCEDURE `get_expired_items`()
 BEGIN
-SELECT 
-	i.id,
-	i.name,
-	p.expires_at
-FROM items i
-JOIN purchases p ON p.item_id = i.id
-WHERE 1 = 1
-AND p.deleted_at IS NULL
-AND p.expires_at < NOW()
-ORDER BY i.id;
+	SET lc_time_names = 'ru_RU';
+    
+	SELECT 
+		i.id,
+		i.name,
+		DATE_FORMAT(p.expires_at , '%d %M %Y') as 'expires'
+	FROM items i
+	JOIN purchases p ON p.item_id = i.id
+	WHERE 1 = 1
+	AND p.deleted_at IS NULL
+	AND p.expires_at < NOW()
+	ORDER BY i.id;
 END $$
 
 -- Отчет по номенклатуре у которой скоро истечет срок годности
 
 CREATE DEFINER=`root`@`%` PROCEDURE `get_soon_expired_items`()
 BEGIN
-SELECT 
-	i.id,
-	i.name,
-	p.expires_at
-FROM items i
-JOIN purchases p ON p.item_id = i.id
-WHERE p.expires_at BETWEEN NOW()
-AND NOW() + INTERVAL 30 DAY
-ORDER BY i.id;
+	SET lc_time_names = 'ru_RU';
+    
+	SELECT 
+		i.id,
+		i.name,
+		DATE_FORMAT(p.expires_at , '%d %M %Y') as 'expires'
+	FROM items i
+	JOIN purchases p ON p.item_id = i.id
+	WHERE p.expires_at BETWEEN NOW()
+	AND NOW() + INTERVAL 30 DAY
+	ORDER BY i.id;
 
 END  $$
 
