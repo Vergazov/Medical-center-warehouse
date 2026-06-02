@@ -1,9 +1,9 @@
 USE medical_center_warehouse;
 
--- Индекс для получения списка айдишников которые будут удалены вместе с накладной для процедур: delete_purchase, restore_purcase
+-- Индекс для получения списка айдишников которые будут удалены вместе с накладной для процедур: delete_purchase_invoice, restore_purcase_invoice
 ALTER TABLE purchases ADD KEY idx_purchases_invoice_deleted (purchase_invoice_id, deleted_at);
 
--- Индекс для получения списка айдишников которые будут удалены вместе с накладной для процедур: delete_expense, restore_expense
+-- Индекс для получения списка айдишников которые будут удалены вместе с накладной для процедур: delete_expense_invoice, restore_expense_invoice
 ALTER TABLE expenses ADD KEY idx_expenses_invoice_deleted (expense_invoice_id, deleted_at);
 
 -- Индекс для отчета по просроченной номенклатуре 
