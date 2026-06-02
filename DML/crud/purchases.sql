@@ -370,7 +370,7 @@ BEGIN
     SELECT 100 AS status;
 END $$
 
--- Восстановить приход
+-- Обновить приход
 
 CREATE DEFINER=`root`@`%` PROCEDURE `update_purchase`(
     IN p_purchase_id INT,
@@ -461,3 +461,4 @@ BEGIN
 END $$
 
 DELIMITER ;
+
