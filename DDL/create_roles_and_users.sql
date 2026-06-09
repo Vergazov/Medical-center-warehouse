@@ -9,6 +9,7 @@ GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_soon_expired_items TO 'a
 GRANT EXECUTE ON PROCEDURE medical_center_warehouse.get_items_movement TO 'analyst';
 
 GRANT ALL PRIVILEGES ON medical_center_warehouse.* TO 'warehouse_manager';
+GRANT USAGE ON *.* TO 'analyst'@'localhost';
 
 CREATE USER IF NOT EXISTS 'warehouse_manager'@'localhost' IDENTIFIED BY '123';
 CREATE USER IF NOT EXISTS 'analyst'@'localhost' IDENTIFIED BY '123';
